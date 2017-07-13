@@ -4,13 +4,21 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
 
+import {routing} from "./app.routes";
+import { PrecoComponent } from './preco/preco.component';
+import { ContatoComponent } from './contato/contato.component';
+import { HomeComponent } from './home/home.component'; 
+
 @NgModule({
   declarations: [
     AppComponent,
-    NavComponent
+    NavComponent,
+    PrecoComponent,
+    ContatoComponent,
+    HomeComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule, routing
   ],
   providers: [],
   bootstrap: [AppComponent]
