@@ -16,6 +16,12 @@ import com.lrosa.rastreamento.model.Tail;
 import com.lrosa.rastreamento.repo.ContactRepository;
 import com.lrosa.rastreamento.repo.TailRepository;
 
+
+/**
+ * Teste de integração utilizando banco de dados em memória
+ * @author lrosa
+ *
+ */
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @TestPropertySource("/test.properties")
