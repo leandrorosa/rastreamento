@@ -20,7 +20,7 @@ public class ContactController {
 
     @GetMapping(value = "/contact/create")
     public void createContact() {
-        final Contact contact = new Contact("leandro.rosagf@gmail.com");
+        final Contact contact = new Contact("leandro.rosagf@gmail.com", null);
         contactRepository.save(contact);
 
     }

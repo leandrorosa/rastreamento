@@ -14,11 +14,13 @@ public class Contact {
 
     private String email;
 
+    private String clientIdentifier;
+
     public Contact() {
 
     }
 
-    public Contact(final String email) {
+    public Contact(final String email, final String clientIdentifier) {
         this.email = email;
     }
 
@@ -36,6 +38,14 @@ public class Contact {
 
     public void setId(final Long id) {
         this.id = id;
+    }
+
+    public String getClientIdentifier() {
+        return clientIdentifier;
+    }
+
+    public void setClientIdentifier(String clientIdentifier) {
+        this.clientIdentifier = clientIdentifier;
     }
 
 }
