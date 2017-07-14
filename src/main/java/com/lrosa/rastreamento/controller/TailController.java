@@ -15,8 +15,8 @@ public class TailController {
 	private TailService tailService;
 
 	@PostMapping("tail/add")
-	public void add(@RequestBody final String clientIdentifier, @RequestBody final String page) {
-		tailService.save(new Tail(clientIdentifier, page));
+	public void add(@RequestBody final Tail tail) {
+		tailService.save(tail);
 	}
 
 }
