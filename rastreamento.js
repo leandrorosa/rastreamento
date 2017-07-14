@@ -17,7 +17,10 @@ class Tail {
 		var xhttp = new XMLHttpRequest();
 		xhttp.open("POST", "http://localhost:8080/tail/add", false);
 		xhttp.setRequestHeader("Content-type", "application/json");
-		xhttp.send(this);
+		xhttp.send(JSON.stringify({
+			clientIdentifier: this.identifier,
+			page: this.page
+		}));
 	}
 }
 
