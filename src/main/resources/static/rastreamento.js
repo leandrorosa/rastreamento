@@ -3,7 +3,9 @@ class Tail {
 	get identifier() {
 		var identifier = localStorage.getItem("rastreamento_identifier");
 		if(identifier == null || identifier.length === 0) {
-			identifier = Date.now() + Math.random();
+			identifier = Date.now()+"-"+(Math.random() * (100 - 1) + 1);
+			identifier = identifier.replace(".", "");
+			identifier = identifier.slice(0, 255);
 			localStorage.setItem("rastreamento_identifier", identifier);
 		}
 		return localStorage.getItem("rastreamento_identifier");

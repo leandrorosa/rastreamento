@@ -38,7 +38,7 @@ public class ContactController {
 			return add(contact);
 		}
 		contactService.save(contact);
-		return new ModelAndView("/");
+		return new ModelAndView("pages/index");
 	}
 
 }

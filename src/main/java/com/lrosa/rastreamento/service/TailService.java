@@ -16,4 +16,8 @@ public class TailService {
 		tailRepository.save(tail);
 	}
 
+	public Iterable<Tail> findByClientIdentifier(final String clientIdentifier) {
+		return tailRepository.findByClientIdentifier(clientIdentifier);
+	}
+
 }

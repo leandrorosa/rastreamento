@@ -1,22 +1,24 @@
 package com.lrosa.rastreamento.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.servlet.ModelAndView;
 
-import com.lrosa.rastreamento.model.Tail;
 import com.lrosa.rastreamento.service.TailService;
 
-@RestController
+@Controller
 public class TailController {
 
 	@Autowired
 	private TailService tailService;
 
-	@PostMapping("tail/add")
-	public void add(@RequestBody final Tail tail) {
-		tailService.save(tail);
+	@GetMapping("/tail/{clientIdentifier}")
+	public ModelAndView listByClientIdentifier(@PathVariable("clientIdentifier") final String clientIdentifier) {
+		final ModelAndView modelAndView = new ModelAndView("/tail/tail");
+		modelAndView.addObject("tails", tailService.findByClientIdentifier(clientIdentifier));
+		return modelAndView;
 	}
 
 }
