@@ -1,4 +1,1 @@
-before_script: cd server
 language: java
-jdk: 
-  - oraclejdk8
