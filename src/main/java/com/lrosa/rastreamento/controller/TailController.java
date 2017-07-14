@@ -2,7 +2,7 @@ package com.lrosa.rastreamento.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.lrosa.rastreamento.model.Tail;
@@ -14,9 +14,9 @@ public class TailController {
 	@Autowired
 	private TailService tailService;
 
-	@PostMapping
-	public void add(@RequestParam final Tail tail) {
-		tailService.save(tail);
+	@PostMapping("tail/add")
+	public void add(@RequestBody final String clientIdentifier, @RequestBody final String page) {
+		tailService.save(new Tail(clientIdentifier, page));
 	}
 
 }
