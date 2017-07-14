@@ -13,6 +13,12 @@ class Tail {
 		return window.location.href;
 	}
 
+	send() {
+		var xhttp = new XMLHttpRequest();
+		xhttp.open("POST", "http://localhost:8080/tail/add", false);
+		xhttp.setRequestHeader("Content-type", "application/json");
+		xhttp.send(this);
+	}
 }
 
 /**
@@ -20,6 +26,6 @@ class Tail {
  */
 window.onload = function() {
 	var tail = new Tail();
+	tail.send();
 	alert(tail.identifier+" - "+tail.page);
-
 }
