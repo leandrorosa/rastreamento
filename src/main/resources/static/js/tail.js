@@ -1,18 +1,22 @@
 class Tail {
 
 	get identifier() {
-		var identifier = localStorage.getItem("rastreamento_identifier");
+		var identifier = localStorage.getItem("tail_identifier");
 		if(identifier == null || identifier.length === 0) {
 			identifier = Date.now()+"-"+(Math.random() * (100 - 1) + 1);
 			identifier = identifier.replace(".", "");
 			identifier = identifier.slice(0, 255);
-			localStorage.setItem("rastreamento_identifier", identifier);
+			localStorage.setItem("tail_identifier", identifier);
 		}
-		return localStorage.getItem("rastreamento_identifier");
+		return localStorage.getItem("tail_identifier");
 	}
 
 	get page() {
 		return window.location.href;
+	}
+
+	get dateAccess() {
+		return new Date();
 	}
 
 	send() {
@@ -21,7 +25,8 @@ class Tail {
 		xhttp.setRequestHeader("Content-type", "application/json");
 		xhttp.send(JSON.stringify({
 			clientIdentifier: this.identifier,
-			page: this.page
+			page: this.page,
+			dateAccess: this.dateAccess
 		}));
 	}
 }

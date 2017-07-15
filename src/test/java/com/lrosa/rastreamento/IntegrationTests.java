@@ -1,5 +1,6 @@
 package com.lrosa.rastreamento;
 
+import java.util.Date;
 import java.util.List;
 
 import org.junit.After;
@@ -60,12 +61,12 @@ public class IntegrationTests {
 	public void twoUsersTest() {
 
 	    final String firstUserIdentifier = "first";
-	    tailRepository.save(new Tail(firstUserIdentifier, "home"));
-	    tailRepository.save(new Tail(firstUserIdentifier, "preco"));
+	    tailRepository.save(new Tail(firstUserIdentifier, "home", new Date()));
+	    tailRepository.save(new Tail(firstUserIdentifier, "preco", new Date()));
 
 	    final String secondUserIdentifier = "second";
-        tailRepository.save(new Tail(secondUserIdentifier, "home"));
-        tailRepository.save(new Tail(secondUserIdentifier, "contato"));
+        tailRepository.save(new Tail(secondUserIdentifier, "home", new Date()));
+        tailRepository.save(new Tail(secondUserIdentifier, "contato", new Date()));
 
         contactRepository.save(new Contact("second@user.com", secondUserIdentifier));
 
@@ -74,7 +75,7 @@ public class IntegrationTests {
         Assert.assertEquals("home", secondUserVisitedPages.get(0).getPage());
         Assert.assertEquals("contato", secondUserVisitedPages.get(1).getPage());
 
-        tailRepository.save(new Tail(firstUserIdentifier, "contato"));
+        tailRepository.save(new Tail(firstUserIdentifier, "contato", new Date()));
 
         contactRepository.save(new Contact("first@user.com", firstUserIdentifier));
 
@@ -84,7 +85,7 @@ public class IntegrationTests {
         Assert.assertEquals("preco", firstUserVisitedPages.get(1).getPage());
         Assert.assertEquals("contato", firstUserVisitedPages.get(2).getPage());
 
-        tailRepository.save(new Tail(secondUserIdentifier, "sobre"));
+        tailRepository.save(new Tail(secondUserIdentifier, "sobre", new Date()));
         secondUserVisitedPages = tailRepository.findByClientIdentifier(secondUserIdentifier);
         Assert.assertEquals(3, secondUserVisitedPages.size());
         Assert.assertEquals("home", secondUserVisitedPages.get(0).getPage());

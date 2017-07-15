@@ -1,5 +1,6 @@
 package com.lrosa.rastreamento.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -17,6 +18,7 @@ public class Contact {
 
     @NotNull
     @Email
+    @Column(unique = true)
     private String email;
 
     @NotNull
@@ -28,6 +30,7 @@ public class Contact {
 
     public Contact(final String email, final String clientIdentifier) {
         this.email = email;
+        this.clientIdentifier = clientIdentifier;
     }
 
     public String getEmail() {

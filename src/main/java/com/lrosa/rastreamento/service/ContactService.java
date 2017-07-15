@@ -20,4 +20,8 @@ public class ContactService {
 		contactRepository.save(contact);
 	}
 
+	public Contact findByClientIdentifier(final String clientIdentifier) {
+		return contactRepository.findByClientIdentifier(clientIdentifier);
+	}
+
 }

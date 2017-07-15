@@ -1,5 +1,7 @@
 package com.lrosa.rastreamento.model;
 
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,13 +18,16 @@ public class Tail {
 
     private String page;
 
+    private Date dateAccess;
+
     public Tail() {
 
     }
 
-    public Tail(final String clientIdentifier, final String page) {
+    public Tail(final String clientIdentifier, final String page, final Date dateAccess) {
         this.clientIdentifier = clientIdentifier;
         this.page = page;
+        this.dateAccess = dateAccess;
     }
 
 
@@ -54,6 +59,14 @@ public class Tail {
     public void setPage(final String page) {
         this.page = page;
     }
+
+	public Date getDateAccess() {
+		return dateAccess;
+	}
+
+	public void setDateAccess(Date dateAccess) {
+		this.dateAccess = dateAccess;
+	}
 
 
 

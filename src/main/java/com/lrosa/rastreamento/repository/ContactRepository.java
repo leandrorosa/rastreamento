@@ -6,4 +6,6 @@ import com.lrosa.rastreamento.model.Contact;
 
 public interface ContactRepository extends CrudRepository<Contact, Long>{
 
+	Contact findByClientIdentifier(final String clientIdentifier);
+
 }

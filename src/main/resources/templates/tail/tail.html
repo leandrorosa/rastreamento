@@ -15,7 +15,8 @@
 <body>
 	<div class="panel panel-default">
 		<div class="panel-heading">
-			<strong>Páginas visitadas</strong>
+		<strong>Páginas visitadas pelo contato</strong>
+			<strong th:text="${contact.email}"></strong>
 		</div>
 		<div class="panel-body">
 			<div class="table-responsive">
@@ -24,16 +25,17 @@
 					<thead>
 						<tr>
 							<th>ID</th>
-							<th>Identificador</th>
+							<th>Identificador do host</th>
 							<th>Página</th>
-							<th></th>
+							<th>Data/Hora Acesso</th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr th:each="tail : ${tails}">
 							<td th:text="${tail.id}"></td>
-							<td th:text="${contato.clientIdentifier}"></td>
-							<td th:text="${contato.page}"></td>
+							<td th:text="${tail.clientIdentifier}"></td>
+							<td th:text="${tail.page}"></td>
+							<td th:text="${tail.dateAccess}"></td>
 						</tr>
 					</tbody>
 				</table>
