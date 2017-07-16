@@ -31,10 +31,5 @@ class Tail {
 	}
 }
 
-/**
- *
- */
-window.onload = function() {
-	var tail = new Tail();
-	tail.send();
-}
+var tail = new Tail();
+tail.send();
