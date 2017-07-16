@@ -31,14 +31,14 @@ public class ContactControllerTest {
 	public void invalidContactSaveTest() throws Exception {
 		when(bindingResult.hasErrors()).thenReturn(true);
 		ModelAndView modelAndView = contactController.save(new Contact(), bindingResult);
-		Assert.assertEquals("/contact/contactAdd", modelAndView.getViewName());
+		Assert.assertEquals("contact/contactAdd", modelAndView.getViewName());
 	}
 
 	@Test
 	public void alreadySavedTest() throws Exception {
 		when(contactService.save(any())).thenReturn(false);
 		ModelAndView modelAndView = contactController.save(new Contact(), bindingResult);
-		Assert.assertEquals("/contact/contactAdd", modelAndView.getViewName());
+		Assert.assertEquals("contact/contactAdd", modelAndView.getViewName());
 	}
 
 	@Test
