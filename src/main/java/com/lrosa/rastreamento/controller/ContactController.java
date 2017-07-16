@@ -19,21 +19,21 @@ public class ContactController {
 	@Autowired
 	private ContactService contactService;
 
-	@GetMapping("/contato")
+	@GetMapping("contato")
 	public ModelAndView listAll() {
 		final ModelAndView modelAndView = new ModelAndView("contact/contact");
 		modelAndView.addObject("contatos", contactService.findAll());
 		return modelAndView;
 	}
 
-	@GetMapping("/contato/add")
+	@GetMapping("contato/add")
 	public ModelAndView add(Contact contact) {
 		ModelAndView modelAndView = new ModelAndView("/contact/contactAdd");
 		modelAndView.addObject("contact", contact);
 		return modelAndView;
 	}
 
-	@PostMapping("/save")
+	@PostMapping("save")
 	public ModelAndView save(@Valid Contact contact, BindingResult result) {
 		if (result.hasErrors()) {
 			return add(contact);

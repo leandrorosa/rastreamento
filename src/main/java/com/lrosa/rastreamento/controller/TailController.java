@@ -18,7 +18,7 @@ public class TailController {
 	@Autowired
 	private ContactService contactService;
 
-	@GetMapping("/tail/{clientIdentifier}")
+	@GetMapping("tail/{clientIdentifier}")
 	public ModelAndView listByClientIdentifier(@PathVariable("clientIdentifier") final String clientIdentifier) {
 		final ModelAndView modelAndView = new ModelAndView("/tail/tail");
 		modelAndView.addObject("tails", tailService.findByClientIdentifier(clientIdentifier));
