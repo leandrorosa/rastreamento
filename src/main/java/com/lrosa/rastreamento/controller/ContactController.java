@@ -28,7 +28,7 @@ public class ContactController {
 
 	@GetMapping("contato/add")
 	public ModelAndView add(Contact contact) {
-		ModelAndView modelAndView = new ModelAndView("/contact/contactAdd");
+		ModelAndView modelAndView = new ModelAndView("contact/contactAdd");
 		modelAndView.addObject("contact", contact);
 		return modelAndView;
 	}
