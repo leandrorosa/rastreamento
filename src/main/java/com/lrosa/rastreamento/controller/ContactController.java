@@ -5,6 +5,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -37,7 +38,11 @@ public class ContactController {
 		if (result.hasErrors()) {
 			return add(contact);
 		}
-		contactService.save(contact);
+		final boolean saved = contactService.save(contact);
+		if(!saved) {
+			result.addError(new ObjectError("email", "Contato já cadastrado"));
+			return add(contact);
+		}
 		return new ModelAndView("redirect:/index.html");
 	}
 

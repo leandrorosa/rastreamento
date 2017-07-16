@@ -3,7 +3,7 @@ package com.lrosa.rastreamento;
 import java.util.Date;
 import java.util.List;
 
-import org.junit.After;
+import org.assertj.core.util.Lists;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,10 +12,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.lrosa.rastreamento.controller.ContactController;
+import com.lrosa.rastreamento.controller.rest.TailRestController;
 import com.lrosa.rastreamento.model.Contact;
 import com.lrosa.rastreamento.model.Tail;
-import com.lrosa.rastreamento.repository.ContactRepository;
-import com.lrosa.rastreamento.repository.TailRepository;
+import com.lrosa.rastreamento.service.TailService;
 
 
 /**
@@ -29,10 +30,13 @@ import com.lrosa.rastreamento.repository.TailRepository;
 public class IntegrationTests {
 
     @Autowired
-    private TailRepository tailRepository;
+    private TailRestController tailController;
 
     @Autowired
-    private ContactRepository contactRepository;
+    private ContactController contactController;
+
+    @Autowired
+    private TailService tailService;
 
     /**
      *  O visitante "A" acessa a página "Home" da sua página de exemplo.
@@ -61,44 +65,36 @@ public class IntegrationTests {
 	public void twoUsersTest() {
 
 	    final String firstUserIdentifier = "first";
-	    tailRepository.save(new Tail(firstUserIdentifier, "home", new Date()));
-	    tailRepository.save(new Tail(firstUserIdentifier, "preco", new Date()));
+	    tailController.add(new Tail(firstUserIdentifier, "home", new Date()));
+	    tailController.add(new Tail(firstUserIdentifier, "preco", new Date()));
 
 	    final String secondUserIdentifier = "second";
-        tailRepository.save(new Tail(secondUserIdentifier, "home", new Date()));
-        tailRepository.save(new Tail(secondUserIdentifier, "contato", new Date()));
+        tailController.add(new Tail(secondUserIdentifier, "home", new Date()));
+        tailController.add(new Tail(secondUserIdentifier, "contato", new Date()));
 
-        contactRepository.save(new Contact("second@user.com", secondUserIdentifier));
+        contactController.add(new Contact("second@user.com", secondUserIdentifier));
 
-        List<Tail> secondUserVisitedPages = tailRepository.findByClientIdentifier(secondUserIdentifier);
+        List<Tail> secondUserVisitedPages = Lists.newArrayList(tailService.findByClientIdentifier(secondUserIdentifier));
         Assert.assertEquals(2, secondUserVisitedPages.size());
         Assert.assertEquals("home", secondUserVisitedPages.get(0).getPage());
         Assert.assertEquals("contato", secondUserVisitedPages.get(1).getPage());
 
-        tailRepository.save(new Tail(firstUserIdentifier, "contato", new Date()));
+        tailController.add(new Tail(firstUserIdentifier, "contato", new Date()));
 
-        contactRepository.save(new Contact("first@user.com", firstUserIdentifier));
+        contactController.add(new Contact("first@user.com", firstUserIdentifier));
 
-        final List<Tail> firstUserVisitedPages = tailRepository.findByClientIdentifier(firstUserIdentifier);
+        final List<Tail> firstUserVisitedPages = Lists.newArrayList(tailService.findByClientIdentifier(firstUserIdentifier));
         Assert.assertEquals(3, firstUserVisitedPages.size());
         Assert.assertEquals("home", firstUserVisitedPages.get(0).getPage());
         Assert.assertEquals("preco", firstUserVisitedPages.get(1).getPage());
         Assert.assertEquals("contato", firstUserVisitedPages.get(2).getPage());
 
-        tailRepository.save(new Tail(secondUserIdentifier, "sobre", new Date()));
-        secondUserVisitedPages = tailRepository.findByClientIdentifier(secondUserIdentifier);
+        tailController.add(new Tail(secondUserIdentifier, "sobre", new Date()));
+        secondUserVisitedPages = Lists.newArrayList(tailService.findByClientIdentifier(secondUserIdentifier));
         Assert.assertEquals(3, secondUserVisitedPages.size());
         Assert.assertEquals("home", secondUserVisitedPages.get(0).getPage());
         Assert.assertEquals("contato", secondUserVisitedPages.get(1).getPage());
         Assert.assertEquals("sobre", secondUserVisitedPages.get(2).getPage());
 	}
-
-	@After
-	public void clearInMemoryData() {
-	    tailRepository.deleteAll();
-	    contactRepository.deleteAll();
-	}
-
-
 
 }

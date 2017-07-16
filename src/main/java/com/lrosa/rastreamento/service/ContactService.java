@@ -16,8 +16,16 @@ public class ContactService {
 		return contactRepository.findAll();
 	}
 
-	public void save(final Contact contact) {
+	public boolean save(final Contact contact) {
+		if(contactRepository.findByClientIdentifier(contact.getClientIdentifier()) != null) {
+			return false;
+		}
+		if(contactRepository.findByEmail(contact.getEmail()) != null) {
+			return false;
+		}
+
 		contactRepository.save(contact);
+		return true;
 	}
 
 	public Contact findByClientIdentifier(final String clientIdentifier) {
